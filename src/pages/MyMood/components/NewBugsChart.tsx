@@ -1,11 +1,16 @@
-import type { DataPointsProps } from '../../../types/chart';
+import type { ChartActions, DataPointsProps } from '../../../types/chart';
 import Chart from '../../../components/Chart/Chart';
+import { useContext, useEffect, useRef } from 'react';
+import { SharedCrosshairContext } from '../../../context/Charts/SharedCrosshair/SharedCrosshair';
 
 type NewBugsChartProps = {
   newBugs: Array<DataPointsProps>;
 };
 
 const NewBugsChart = ({ newBugs = [] }: NewBugsChartProps) => {
+  const ref = useRef<null | ChartActions>(null);
+  const { position } = useContext(SharedCrosshairContext);
+
   const options = {
     axisX: {
       crosshair: {
@@ -24,10 +29,17 @@ const NewBugsChart = ({ newBugs = [] }: NewBugsChartProps) => {
     ],
   };
 
+  useEffect(() => {
+    ref.current && position && ref.current.setCrosshair(position);
+  }, [position]);
+
   return (
     <>
       bugs i got today
-      <Chart options={options} />
+      <Chart
+        options={options}
+        ref={ref}
+      />
     </>
   );
 };
