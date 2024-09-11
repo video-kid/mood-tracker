@@ -1,4 +1,4 @@
-import MyMood from './Pages/MyMood/MyMood';
+import MyMood from './pages/MyMood/MyMood';
 
 function App() {
   return (
