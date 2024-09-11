@@ -1,6 +1,7 @@
-import { useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import type { DataPointsProps, ChartActions } from '../../../types/chart';
 import Chart from '../../../components/Chart/Chart';
+import { SharedCrosshairContext } from '../../../context/Charts/SharedCrosshair/SharedCrosshair';
 
 type MoodChartProps = {
   dailyMood: Array<DataPointsProps>;
@@ -9,6 +10,7 @@ type MoodChartProps = {
 
 const MoodChart = ({ dailyMood = [], averageMood = [] }: MoodChartProps) => {
   const ref = useRef<null | ChartActions>(null);
+  const { updateCrosshair, position } = useContext(SharedCrosshairContext);
 
   const options = {
     axisX: {
@@ -37,12 +39,15 @@ const MoodChart = ({ dailyMood = [], averageMood = [] }: MoodChartProps) => {
     ],
   };
 
+  useEffect(() => {
+    ref.current && position && ref.current.setCrosshair(position);
+  }, [position]);
+
   return (
     <>
       Overall Mood
-      <button onClick={() => ref.current && ref.current.setCrosshair(12)}>
-        set croshair at 12
-      </button>
+      {position && <p>current position {position}</p>}
+      <button onClick={() => updateCrosshair(12)}>set croshair at 12</button>
       <Chart
         options={options}
         ref={ref}

@@ -19,4 +19,6 @@ export type ChartProps = {
   data: Array<ChartDataProps>;
 };
 
-export type ChartActions = { setCrosshair: (value: number) => void };
+export type ChartActions = {
+  setCrosshair: (value: number) => void;
+};
