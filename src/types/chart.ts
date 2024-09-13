@@ -23,3 +23,7 @@ export type ChartActions = {
   getMousePositionOnXAxis: any;
   setCrosshair: (value: number) => void;
 };
+
+export type MapOfDataPoints = { [key: string]: Array<DataPointsProps> };
+
+export type GenericChartProps<T extends MapOfDataPoints> = T;
