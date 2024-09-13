@@ -11,11 +11,14 @@ const MyMood = () => {
         <h1>My mood chart</h1>
       </header>
       <SharedCrosshairProvider>
+        <h3>Mood</h3>
         <MoodChart
           dailyMood={dailyMood}
           averageMood={averageMood}
         />
+        <h3>Animals met :3</h3>
         <AnimalsMetChart animalsMet={animalsMet} />
+        <h3>New bugs in code :c</h3>
         <NewBugsChart newBugs={newBugs} />
       </SharedCrosshairProvider>
     </div>
