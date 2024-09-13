@@ -5,9 +5,11 @@ export type RootChartProps = {
 };
 
 type AxisXChartRefTypes = {
+  [x: string]: any;
   crosshair: {
     showAt: (value: number) => void;
   };
+  convertPixelToValue: (value: number) => number;
 };
 
 export type ChartRefTypes = {

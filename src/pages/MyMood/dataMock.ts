@@ -17,11 +17,9 @@ export const averageMood: Array<DataPointsProps> = [
 ];
 
 export const animalsMet: Array<DataPointsProps> = [
-  { x: 11, label: 11, y: 1 },
   { x: 12, label: 12, y: 4 },
   { x: 13, label: 13, y: 10 },
   { x: 14, label: 14, y: 3 },
-  { x: 15, label: 15, y: 8 },
 ];
 
 export const newBugs: Array<DataPointsProps> = [

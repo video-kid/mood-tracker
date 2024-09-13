@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react';
+import { MouseEvent, useContext, useEffect, useRef } from 'react';
 import type { DataPointsProps, ChartActions } from '../../../types/chart';
 import Chart from '../../../components/Chart/Chart';
 import { SharedCrosshairContext } from '../../../context/Charts/SharedCrosshair/SharedCrosshair';
@@ -32,9 +32,6 @@ const MoodChart = ({ dailyMood = [], averageMood = [] }: MoodChartProps) => {
         dataPoints: averageMood,
         color: '#00BCD4',
         toolTipContent: '{y} average mood till {label}',
-        mouseover: (e: any) => {
-          //   console.log(e);
-        },
       },
     ],
   };
@@ -43,15 +40,20 @@ const MoodChart = ({ dailyMood = [], averageMood = [] }: MoodChartProps) => {
     ref.current && position && ref.current.setCrosshair(position);
   }, [position]);
 
+  const mouseMoveHandler = (e: MouseEvent) => {
+    ref.current &&
+      updateCrosshair(ref.current.getMousePositionOnXAxis(e.pageX).toFixed(2));
+  };
+
   return (
     <>
       Overall Mood
-      {position && <p>current position {position}</p>}
-      <button onClick={() => updateCrosshair(12)}>set croshair at 12</button>
-      <Chart
-        options={options}
-        ref={ref}
-      />
+      <div onMouseMove={mouseMoveHandler}>
+        <Chart
+          options={options}
+          ref={ref}
+        />
+      </div>
     </>
   );
 };
