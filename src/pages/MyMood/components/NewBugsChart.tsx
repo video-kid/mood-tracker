@@ -1,47 +1,48 @@
-import type { ChartActions, DataPointsProps } from '../../../types/chart';
+import type {
+  ChartActions,
+  DataPointsProps,
+  GenericChartProps,
+} from '../../../types/chart';
 import Chart from '../../../components/Chart/Chart';
-import { useContext, useEffect, useRef } from 'react';
-import { SharedCrosshairContext } from '../../../context/Charts/SharedCrosshair/SharedCrosshair';
+import { ComponentType, forwardRef } from 'react';
+
+import withSharedCrosshair from '../hoc/withSharedCrosshair';
 
 type NewBugsChartProps = {
   newBugs: Array<DataPointsProps>;
 };
 
-const NewBugsChart = ({ newBugs = [] }: NewBugsChartProps) => {
-  const ref = useRef<null | ChartActions>(null);
-  const { position } = useContext(SharedCrosshairContext);
-
-  const options = {
-    axisX: {
-      crosshair: {
-        enabled: true,
-      },
+const buildOptionsConfig = (newBugs: DataPointsProps[]) => ({
+  axisX: {
+    crosshair: {
+      enabled: true,
     },
-    toolTip: {
-      shared: false,
+  },
+  toolTip: {
+    shared: false,
+  },
+  data: [
+    {
+      type: 'line',
+      dataPoints: newBugs,
+      color: '#a1df01',
     },
-    data: [
-      {
-        type: 'line',
-        dataPoints: newBugs,
-        color: '#a1df01',
-      },
-    ],
-  };
+  ],
+});
 
-  useEffect(() => {
-    ref.current && position && ref.current.setCrosshair(position);
-  }, [position]);
+const NewBugsChart = forwardRef<ChartActions | null, NewBugsChartProps>(
+  ({ newBugs = [] }, ref) => {
+    const options = buildOptionsConfig(newBugs);
 
-  return (
-    <>
-      bugs i got today
+    return (
       <Chart
         options={options}
         ref={ref}
       />
-    </>
-  );
-};
+    );
+  }
+);
 
-export default NewBugsChart;
+export default withSharedCrosshair(
+  NewBugsChart as ComponentType<GenericChartProps<NewBugsChartProps>>
+);
