@@ -1,5 +1,6 @@
-// @ts-ignore
+// @ts-ignore-next-line
 import CanvasJSReact from '@canvasjs/react-charts';
+
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import type { ChartRefTypes, RootChartProps } from './types/chart';
 import { ChartActions } from '../../types/chart';
@@ -11,22 +12,23 @@ const defaultOptions = {
 
 const CanvasChart = CanvasJSReact.CanvasJSChart;
 
-const Chart = forwardRef<ChartActions, RootChartProps>(
+const Chart = forwardRef<ChartActions | undefined, RootChartProps>(
   ({ options, ...props }, ref) => {
-    let chartRef = useRef<null | ChartRefTypes>(null);
+    let chartRef = useRef<undefined | ChartRefTypes>(undefined);
 
     useImperativeHandle(
       ref,
       () => {
+        const chartInstance = chartRef.current;
+
+        if (!chartInstance) return;
+
         return {
           setCrosshair(value: number): void {
-            chartRef.current &&
-              chartRef.current.axisX[0].crosshair.showAt(value);
+            chartInstance.axisX[0].crosshair.showAt(value);
           },
           getMousePositionOnXAxis(value: number): number {
-            return chartRef.current
-              ? chartRef.current.axisX[0].convertPixelToValue(value)
-              : 0;
+            return chartInstance.axisX[0].convertPixelToValue(value);
           },
         };
       },
