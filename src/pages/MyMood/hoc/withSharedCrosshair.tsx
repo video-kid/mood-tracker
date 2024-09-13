@@ -29,15 +29,12 @@ const withSharedCrosshair = <T extends Record<string, Array<DataPointsProps>>>(
     };
 
     return (
-      <>
-        Overall Mood
-        <div onMouseMove={mouseMoveHandler}>
-          <Element
-            {...props}
-            ref={ref}
-          />
-        </div>
-      </>
+      <div onMouseMove={mouseMoveHandler}>
+        <Element
+          {...props}
+          ref={ref}
+        />
+      </div>
     );
   };
 };
