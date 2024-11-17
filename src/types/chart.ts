@@ -1,7 +1,7 @@
 export type DataPointsProps = {
-  label: number;
   x: number;
   y: Array<number> | number;
+  label?: string;
 };
 
 type ChartDataProps = {
