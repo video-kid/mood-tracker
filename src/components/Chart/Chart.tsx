@@ -27,6 +27,9 @@ const Chart = forwardRef<ChartActions | undefined, RootChartProps>(
           setCrosshair(value: number): void {
             chartInstance.axisX[0].crosshair.showAt(value);
           },
+          clearCrosshair(): void {
+            chartInstance.axisX[0].crosshair.hide();
+          },
           getMousePositionOnXAxis(value: number): number {
             return chartInstance.axisX[0].convertPixelToValue(value);
           },

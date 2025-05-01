@@ -25,6 +25,10 @@ const withSharedCrosshair = <T extends Record<string, Array<DataPointsProps>>>(
 
         if (position !== mousePosition) {
           updateCrosshair(mousePosition);
+        }
+
+        if (position) {
+          ref.current.clearCrosshair();
           ref.current.setCrosshair(mousePosition);
         }
       }
