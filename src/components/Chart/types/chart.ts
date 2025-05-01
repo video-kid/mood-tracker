@@ -8,6 +8,7 @@ type AxisXChartRefTypes = {
   [x: string]: any;
   crosshair: {
     showAt: (value: number) => void;
+    hide: () => void;
   };
   convertPixelToValue: (value: number) => number;
 };

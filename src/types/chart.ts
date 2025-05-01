@@ -22,6 +22,7 @@ export type ChartProps = {
 export type ChartActions = {
   getMousePositionOnXAxis: any;
   setCrosshair: (value: number) => void;
+  clearCrosshair: () => void;
 };
 
 export type MapOfDataPoints = { [key: string]: Array<DataPointsProps> };
